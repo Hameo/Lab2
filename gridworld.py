@@ -9,6 +9,7 @@ class Gridworld(mdp.MarkovDecisionProcess):
     """
       Gridworld
     """
+    #Gridworld? More like grid... world. Shut up.
     def __init__(self, grid):
         # layout
         if type(grid) == type([]): grid = makeGrid(grid)
