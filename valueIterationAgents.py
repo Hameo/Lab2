@@ -1,6 +1,8 @@
-import mdp, util
+import util
+import mdp
 
 from learningAgents import ValueEstimationAgent
+
 
 class ValueIterationAgent(ValueEstimationAgent):
     """
@@ -11,7 +13,8 @@ class ValueIterationAgent(ValueEstimationAgent):
         for a given number of iterations using the supplied
         discount factor.
     """
-    def __init__(self, mdp, discount = 0.9, iterations = 100):
+
+    def __init__(self, mdp, discount=0.9, iterations=100):
         """
           Your value iteration agent should take an mdp on
           construction, run the indicated number of iterations
@@ -27,10 +30,13 @@ class ValueIterationAgent(ValueEstimationAgent):
         self.mdp = mdp
         self.discount = discount
         self.iterations = iterations
-        self.values = util.Counter() # A Counter is a dict with default 0
+        self.values = util.Counter()  # A Counter is a dict with default 0
 
         # Write value iteration code here
         "*** YOUR CODE HERE ***"
+        iterationKStates = util.Counter()
+        iterationKPlusOneStates = util.Counter()
+
 
 
     def getValue(self, state):
@@ -46,7 +52,11 @@ class ValueIterationAgent(ValueEstimationAgent):
           value function stored in self.values.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+
+        mdp.getTransitionStatesAndProbs(state, action)
+
+        # util.raiseNotDefined()
+
 
     def computeActionFromValues(self, state):
         """
