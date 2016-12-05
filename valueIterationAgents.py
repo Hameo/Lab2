@@ -3,7 +3,7 @@ import mdp
 
 from learningAgents import ValueEstimationAgent
 
-
+#Björn, förlåt mig snälla
 class ValueIterationAgent(ValueEstimationAgent):
     """
         * Please read learningAgents.py before reading this.*
@@ -52,8 +52,10 @@ class ValueIterationAgent(ValueEstimationAgent):
           value function stored in self.values.
         """
         "*** YOUR CODE HERE ***"
+        tranprob = mdp.getTransitionStatesAndProbs(state, action)
 
-        mdp.getTransitionStatesAndProbs(state, action)
+        for x in tranprob:
+            pass
 
         # util.raiseNotDefined()
 
