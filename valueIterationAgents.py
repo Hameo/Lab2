@@ -3,7 +3,6 @@ import mdp
 
 from learningAgents import ValueEstimationAgent
 
-#Björn, förlåt mig snälla
 class ValueIterationAgent(ValueEstimationAgent):
     """
         * Please read learningAgents.py before reading this.*
@@ -34,8 +33,25 @@ class ValueIterationAgent(ValueEstimationAgent):
 
         # Write value iteration code here
         "*** YOUR CODE HERE ***"
-        iterationKStates = util.Counter()
-        iterationKPlusOneStates = util.Counter()
+        for each in range(iterations):
+            copyOfValue = self.values.copy()
+
+            for state in self.mdp.getStates():
+                bestValue = None
+                if self.mdp.isTerminal(state):
+                    copyOfValue[state] = 0
+                    continue
+                for action in self.mdp.getPossibleActions(state):
+                    newValue = self.getQValue(state, action)
+                    if bestValue == None or bestValue < newValue:
+                        bestValue = newValue
+                copyOfValue[state] = bestValue
+            self.values = copyOfValue
+
+
+
+
+
 
 
 
@@ -52,11 +68,14 @@ class ValueIterationAgent(ValueEstimationAgent):
           value function stored in self.values.
         """
         "*** YOUR CODE HERE ***"
-        tranprob = mdp.getTransitionStatesAndProbs(state, action)
-
-        for x in tranprob:
-            pass
-
+        tranprob = self.mdp.getTransitionStatesAndProbs(state, action)
+        realReward = 0
+        for nextState, probability in tranprob:
+            reward = self.mdp.getReward(state, action, nextState)
+            gamma = self.discount
+            nextReward = gamma * self.values[nextState]
+            realReward = realReward + probability * (reward + nextReward)
+        return realReward
         # util.raiseNotDefined()
 
 
@@ -70,6 +89,20 @@ class ValueIterationAgent(ValueEstimationAgent):
           terminal state, you should return None.
         """
         "*** YOUR CODE HERE ***"
+        possibleActions = self.mdp.getPossibleActions(state)
+
+        if len(possibleActions) == 0:
+            return None
+
+        value = None
+        result = None
+        for action in possibleActions:
+            temp = self.computeQValueFromValues(state, action)
+            if value == None or temp > value:
+                value = temp
+                result = action
+
+        return result
         util.raiseNotDefined()
 
     def getPolicy(self, state):
