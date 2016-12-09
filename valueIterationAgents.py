@@ -103,7 +103,6 @@ class ValueIterationAgent(ValueEstimationAgent):
                 result = action
 
         return result
-        util.raiseNotDefined()
 
     def getPolicy(self, state):
         return self.computeActionFromValues(state)
